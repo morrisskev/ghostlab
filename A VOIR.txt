@@ -1,0 +1,5 @@
+SERVER.java LIGNE 375 => quit?
+SERVER.java LIGNE 49 //normalement c'est bon
+
+Problèmes d'envoie au niveau du server vers le player :
+au moins après "/new" et après "/join n"
