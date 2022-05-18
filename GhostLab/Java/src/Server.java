@@ -8,6 +8,7 @@ import java.util.regex.*;
 import java.util.Random;
 
 public class Server{
+    protected int numberTotalJoueur;
 /* Port TCP du serveur */
  public int port_tcp;
 
@@ -313,17 +314,18 @@ public class Server{
     return res+"";
   }
 
+
   /*
     Suite à une connexion d'un joueur ou /games
     - Ecrit dans l'argument un message de la forme [GAMES␣n***]
-    - Envoie autant de messages [GAME␣m␣s***] qu'il y a de parties disponibles
+    - Envoie autant de messages [GAMES␣m␣s***] qu'il y a de parties disponibles
   */
   public void treatGames(PrintWriter pw) throws IOException {
     int n = 0;
 
     for(int i = 0 ; i < this.games.size() ; i++){
       if(!this.games.get(i).getStart())
-        n+=1;
+        n+=1; // nombre de partie ++
     }
 
     String n2 = n + "";
@@ -473,11 +475,13 @@ public class Server{
   }
 
   void launchServer(Server server){
-    System.out.println("--- Demarrage du serveur --- port n° "+this.port_tcp);
+    System.out.println("*** Demarrage du serveur *** port n° "+this.port_tcp);
     try{
       ServerSocket serverSocket = new ServerSocket(server.port_tcp);
       while(true){
         Socket socket = serverSocket.accept(); // socket du client
+          ++this.numberTotalJoueur;
+          System.out.println("Un joueur vient de se connecter numero !! " + this.numberTotalJoueur );
         // premier null = joueur, deuxieme null = partie
         Service sm = new Service(socket, this, null, null);
         Thread th = new Thread(sm);

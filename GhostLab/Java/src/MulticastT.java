@@ -14,6 +14,7 @@ public class MulticastT implements Runnable{
     try{
       mso.joinGroup(InetAddress.getByName(this.ip));
 
+
       while(true){
         byte[] data = new byte[300];
         DatagramPacket packet = new DatagramPacket(data, data.length);

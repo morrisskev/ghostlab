@@ -29,13 +29,13 @@ public class Player {
 		br.read(chaine, 0, chaine.length);
 		String res = new String(chaine);
 
-		System.out.println("TCP Reçu   --- ["+res+"]");
+		System.out.println("TCP Reçu  *** ["+res+"]");
 		return res;
 	}
 
 	/* Ecris dans pw la variable msg */
 	public void writeInfo(PrintWriter pw, String msg) throws IOException {
-		System.out.println("TCP Envoyé --- ["+ msg +"]");
+		System.out.println("TCP Envoyé *** ["+ msg +"]");
 		pw.write(msg.length());
 		pw.flush();
 		pw.print(msg);
@@ -245,15 +245,20 @@ public class Player {
 		boolean loop = true;
 		String id = "";
 
-		while(loop){
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Pseudo ? ");
-			System.out.print("> ");
-			id = sc.nextLine();
-			loop = !Pattern.matches("^\\w{1,8}\\b", id);
+		Scanner pseudo = new Scanner(System.in);
+		System.out.println("Entrer votre pseudo");
+		id = pseudo.nextLine();
+		if(id.length() >8){
+			while(id.length() > 8){
+				pseudo = new Scanner(System.in);
+				id = pseudo.nextLine();
+			}
 		}
+
 		return id;
 	}
+
+
 
 	public static int choosePort(){
 		boolean loop = true;
